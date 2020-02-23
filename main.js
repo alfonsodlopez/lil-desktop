@@ -1,5 +1,6 @@
 const { app, BrowserWindow, BrowserView } = require('electron');
 const path = require('path');
+const notify = require('./src/notify');
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -8,8 +9,9 @@ let mainWindow;
 function createWindow() {
     // Create the browser window.
     mainWindow = new BrowserWindow({
-        icon: "media/liicon.png",
         show: false,
+        backgroundColor: "#0e76a8",
+        icon: "media/liicon.png",
         useContentSize: true,
         enableLargerThanScreen: true,
         webPreferences: {
@@ -21,6 +23,8 @@ function createWindow() {
 
     });
 
+    //In the main container, set content to open in mainWindow
+    //Set minimum size of main container. Open the main container in fullscreen mode.
     let view = new BrowserView();
     mainWindow.setBrowserView(view);
     mainWindow.setMinimumSize(850, 600);
@@ -28,7 +32,6 @@ function createWindow() {
 
     //Set minimum bounds for the contents within the BrowserView. Allow resize of loaded URL contents.
     view.setBounds(mainWindow.getBounds());
-    //view.setBounds({ x: 0, y: 0, width: 850, height: 600 }); //view
     view.webContents.loadURL('https://linkedin.com/learning'); //view
     view.setAutoResize({
         width: true,
@@ -41,9 +44,15 @@ function createWindow() {
     mainWindow.once('ready-to-show', () => {
         mainWindow.show();
         // Open the DevTools.
-        //mainWindow.webContents.openDevTools()
+        mainWindow.webContents.openDevTools()
+
     });
 
+
+    //TODO: Get notification to display.
+    mainWindow.on('ready-to-show', () => {
+        notify.notifyUser();
+    });
 
     // Emitted when the window is closed.
     mainWindow.on('closed', function () {
