@@ -8,14 +8,12 @@ let mainWindow;
 function createWindow() {
     // Create the browser window.
     mainWindow = new BrowserWindow({
-        icon: "liicon.png",
+        icon: "media/liicon.png",
         show: false,
         useContentSize: true,
         enableLargerThanScreen: true,
-        //width: 800,
-        //height: 600,
         webPreferences: {
-            preload: path.join(__dirname, 'preload.js'),
+            preload: path.join(__dirname, 'src/preload.js'),
             useContentSize: true,
             simpleFullscreen: true,
             type: "desktop",
@@ -26,9 +24,11 @@ function createWindow() {
     let view = new BrowserView();
     mainWindow.setBrowserView(view);
     mainWindow.setMinimumSize(850, 600);
+    mainWindow.maximize();
 
     //Set minimum bounds for the contents within the BrowserView. Allow resize of loaded URL contents.
-    view.setBounds({ x: 0, y: 0, width: 850, height: 600 }); //view
+    view.setBounds(mainWindow.getBounds());
+    //view.setBounds({ x: 0, y: 0, width: 850, height: 600 }); //view
     view.webContents.loadURL('https://linkedin.com/learning'); //view
     view.setAutoResize({
         width: true,
@@ -36,7 +36,7 @@ function createWindow() {
     });
 
     // load the index.html of the app.
-    mainWindow.loadFile('index.html');
+    mainWindow.loadFile('src/index.html');
 
     mainWindow.once('ready-to-show', () => {
         mainWindow.show();
