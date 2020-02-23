@@ -8,6 +8,7 @@ let mainWindow;
 function createWindow() {
     // Create the browser window.
     mainWindow = new BrowserWindow({
+        icon: "liicon.png",
         show: false,
         useContentSize: true,
         enableLargerThanScreen: true,
@@ -24,8 +25,10 @@ function createWindow() {
 
     let view = new BrowserView();
     mainWindow.setBrowserView(view);
-    mainWindow.setMinimumSize(800, 600);
-    view.setBounds({ x: 0, y: 0, width: 800, height: 600 }); //view
+    mainWindow.setMinimumSize(850, 600);
+
+    //Set minimum bounds for the contents within the BrowserView. Allow resize of loaded URL contents.
+    view.setBounds({ x: 0, y: 0, width: 850, height: 600 }); //view
     view.webContents.loadURL('https://linkedin.com/learning'); //view
     view.setAutoResize({
         width: true,
@@ -37,9 +40,10 @@ function createWindow() {
 
     mainWindow.once('ready-to-show', () => {
         mainWindow.show();
+        // Open the DevTools.
+        //mainWindow.webContents.openDevTools()
     });
-    // Open the DevTools.
-    // mainWindow.webContents.openDevTools()
+
 
     // Emitted when the window is closed.
     mainWindow.on('closed', function () {
