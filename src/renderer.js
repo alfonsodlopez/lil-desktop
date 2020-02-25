@@ -4,3 +4,12 @@
 // `nodeIntegration` is turned off. Use `preload.js` to
 // selectively enable features needed in the rendering
 // process.
+
+let doNotification = new Notification('LinkedIn Learning', {
+    body: 'Always be Learning',
+    icon: '../media/liicon.png'
+  })
+  
+  doNotification.onclick = () => {
+    console.log('Notification clicked')
+  }

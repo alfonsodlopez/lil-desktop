@@ -1,6 +1,8 @@
-const { app, BrowserWindow, BrowserView } = require('electron');
+const { app, BrowserWindow, BrowserView, Notification, Tray } = require('electron');
 const path = require('path');
-const notify = require('./src/notify');
+const ipc = require('electron').ipcRenderer;
+
+//const notify = require('./src/notify');
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -10,7 +12,6 @@ function createWindow() {
     // Create the browser window.
     mainWindow = new BrowserWindow({
         show: false,
-        backgroundColor: "#0e76a8",
         icon: "media/liicon.png",
         useContentSize: true,
         enableLargerThanScreen: true,
@@ -41,17 +42,12 @@ function createWindow() {
     // load the index.html of the app.
     mainWindow.loadFile('src/index.html');
 
+
+    //TODO: Get notification text to display.
     mainWindow.once('ready-to-show', () => {
         mainWindow.show();
         // Open the DevTools.
-        mainWindow.webContents.openDevTools()
-
-    });
-
-
-    //TODO: Get notification to display.
-    mainWindow.on('ready-to-show', () => {
-        notify.notifyUser();
+        //mainWindow.webContents.openDevTools()
     });
 
     // Emitted when the window is closed.

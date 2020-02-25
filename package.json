@@ -6,6 +6,12 @@
   "scripts": {
     "start": "electron ."
   },
+  "build": {
+    "appId": "0.1",
+    "mac": {
+      "category": "Education"
+    }
+  },
   "repository": "https://github.com/electron/electron-quick-start",
   "keywords": [
     "Electron",
@@ -18,5 +24,9 @@
   "license": "CC0-1.0",
   "devDependencies": {
     "electron": "^7.1.5"
+  },
+  "dependencies": {
+    "node-notifier": "^6.0.0",
+    "notification": "0.0.6"
   }
 }
